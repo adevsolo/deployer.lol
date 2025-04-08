@@ -1,32 +1,23 @@
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
+function uploadFile() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
 
-const app = express();
-const port = 3000;
-
-// Configure multer for file storage
-const storage = multer.diskStorage({
-    destination: './uploads/',
-    filename: (req, file, callback) => {
-        callback(null, Date.now() + path.extname(file.originalname)); // Unique file name
+    if (!file) {
+        alert('Please select a file.');
+        return;
     }
-});
-const upload = multer({ storage });
 
-// Serve the static files (e.g., HTML, JS)
-app.use(express.static('public'));
+    const formData = new FormData();
+    formData.append('file', file);
 
-// Endpoint to handle file upload
-app.post('/upload', upload.single('file'), (req, res) => {
-    const fileUrl = `http://localhost:${port}/uploads/${req.file.filename}`;
-    res.send({ fileUrl }); // Send the file link as the response
-});
-
-// Serve uploaded files
-app.use('/uploads', express.static('uploads'));
-
-// Start the server
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('fileLink').innerHTML = 
+            `<a href="${data.fileUrl}" target="_blank">${data.fileUrl}</a>`;
+    })
+    .catch(err => console.error('Error uploading file:', err));
+}
