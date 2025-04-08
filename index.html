@@ -9,6 +9,28 @@
     <button onclick="uploadFile()">Upload and Generate Link</button>
     <div id="fileLink"></div>
 
-    <script src="upload.js"></script>
+    <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCQfpJ9yD52C1L9bMn4WsOjcpTvYBxnEWU",
+    authDomain: "deployerlol.firebaseapp.com",
+    projectId: "deployerlol",
+    storageBucket: "deployerlol.firebasestorage.app",
+    messagingSenderId: "336157279860",
+    appId: "1:336157279860:web:1d6c02c4cb49b48a7cb321",
+    measurementId: "G-280W3J3S1L"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>
